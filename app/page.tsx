@@ -1,101 +1,76 @@
 import Image from "next/image";
+import ProgressChart from "./components/Chartcard";
+import TopicScoreCard from "./components/scorecard";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const chartValue = [
+    {
+      name: "Attendance",
+      chartnum: 100,
+      total: "22/30",
+    },
+    {
+      name: "Above Avg.",
+      chartnum: 70,
+      total: "22/30",
+    },
+    {
+      name: "Average Score",
+      chartnum: 50,
+      total: "",
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const topicScores = [
+    { topic: "Flowering Plants", percentage: 50, total: "15/30", barColor: "bg-yellow-300" },
+    { topic: "Flowering Plants", percentage: 25, total: "8/30", barColor: "bg-purple-300" },
+    { topic: "Flowering Plants", percentage: 50, total: "15/30", barColor: "bg-green-300" },
+    { topic: "Flowering Plants", percentage: 10, total: "3/30", barColor: "bg-red-300" },
+    { topic: "Flowering Plants", percentage: 50, total: "15/30", barColor: "bg-green-300" },
+    { topic: "Flowering Plants", percentage: 10, total: "3/30", barColor: "bg-red-300" },
+    { topic: "Flowering Plants", percentage: 50, total: "15/30", barColor: "bg-green-300" },
+    { topic: "Flowering Plants", percentage: 100, total: "30/30", barColor: "bg-red-300" },
+    { topic: "Flowering Plants", percentage: 50, total: "15/30", barColor: "bg-blue-300" },
+  ];
+
+  return (
+    <div className="min-h-screen p-7">
+      <p className="flex gap-4 mt-2 items-center mb-[30px]">
+        <Image
+          alt="statistics"
+          src="/assets/Vectorchart-pie.svg"
+          width={15}
+          height={15}
+          className="w-[15px] h-[15px]"
+        />
+        <span className="font-bold text-sm text-[#374258]">
+          Class performance statistics
+        </span>
+      </p>
+
+      <div className="flex gap-4">
+        {chartValue.map((chart, index) => (
+          <div
+            key={index}
+            className="flex gap-4 justify-between w-full bg-white rounded-md p-4"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            <p className="text-center text-[#75819A] font-bold">{chart.name}</p>
+            <div>
+              <ProgressChart value={chart.chartnum} total={chart.total} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="w-full p-6 mt-4 bg-white rounded-md shadow-md">
+      <h2 className="font-bold text-sm text-[#75819A] mb-4">Score per Question Topic (9)</h2>
+        {/* Grid layout for Topic Score Cards */}
+      <div className="mt-4 grid grid-rows-2 grid-cols-1 md:grid-cols-2 gap-4">
+        {topicScores.map((score, index) => (
+          <TopicScoreCard key={index} score={score} />
+        ))}
+      </div>
+      </div>
     </div>
   );
 }
